@@ -19,7 +19,9 @@ class ParentsController extends Controller
         ->select('id', 'name', 'gender')
         ->get();
 
-        return view('parents.index', compact('parents'));
+        $page_title = "Parents";
+
+        return view('parents.index', compact('parents', 'page_title'));
     }
 
     /**
@@ -27,7 +29,8 @@ class ParentsController extends Controller
      */
     public function create()
     {
-        return view('parents.create');
+        $page_title = "Create Parents";
+        return view('parents.create', compact('page_title'));
     }
 
     /**
@@ -56,7 +59,9 @@ class ParentsController extends Controller
         ->select('id', 'name', 'gender')
         ->firstOrfail();
 
-        return view('parents.show', compact('parents'));
+        $page_title="Show Parents";
+
+        return view('parents.show', compact('parents', 'page_title'));
     }
 
     /**
@@ -64,13 +69,15 @@ class ParentsController extends Controller
      */
     public function edit(string $id)
     {
-        $parents = Parents::where('user_id', Auth::id())
+        $parent = Parents::where('user_id', Auth::id())
         ->where('id', $id)
         ->where('active', 1)
         ->select('id', 'name', 'gender')
         ->firstOrfail();
 
-        return view('parents.edit', compact('parents'));
+        $page_title="Edit Parents";
+
+        return view('parents.edit', compact('parents', 'page_title'));
     }
 
     /**
@@ -97,16 +104,16 @@ class ParentsController extends Controller
      */
     public function destroy(string $id)
     {
-        $parents = Parents::where('user_id', Auth::id())
+        $parent = Parents::where('user_id', Auth::id())
         ->where('id', $id)
         ->where('active', 1)
         ->select('id', 'name', 'gender')
         ->firstOrfail();
 
-        $parents->update([
+        $parent->update([
             'active' => 0
         ]);
 
-        return redirect()->route('parents.show', $id);
+        return redirect()->route('parents.index', $id);
     }
 }

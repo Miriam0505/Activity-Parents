@@ -16,11 +16,13 @@ class SuperpowersController extends Controller
         $superpowers = Superpowers::where('user_id', Auth::id())
         //dd($superpowers); //::where('id', Auth::id())
         ->where('active', 1)
-        ->select('id', 'name', 'desciption')
+        ->select('id', 'name', 'description')
         ->get();
+
+        $page_title = "Superpowers";
         //dd($superpowers);
 
-        return view('superpowers.index', compact('superpowers'));
+        return view('superpowers.index', compact('superpowers', 'page_title'));
     }
 
     /**
@@ -28,7 +30,9 @@ class SuperpowersController extends Controller
      */
     public function create()
     {
-        return view('superpowers.create');
+        $page_title = "Superpowers.create";
+
+        return view('superpowers.create', compact('page_title'));
     }
 
     /**
@@ -59,8 +63,9 @@ class SuperpowersController extends Controller
         ->select('id', 'name', 'desciption')
         ->firstOrfail();
 
-        //dd($superpowers);
-        return view('superpowers.show', compact('superpower'));
+        $page_title = "Show Superpower";
+
+        return view('superpowers.show', compact('superpowers', 'page_title'));
     }
 
     /**
@@ -68,14 +73,15 @@ class SuperpowersController extends Controller
      */
     public function edit(string $id)
     {
-        $superpowers = Superpowers::where('user_id', Auth::id())
+        $superpower = Superpowers::where('user_id', Auth::id())
         ->where('id', $id)
         ->where('active', 1)
         ->select('id', 'name', 'desciption')
         ->firstOrfail();
 
-        //dd($superpowers);
-        return view('superpowers.edit', compact('superpower'));
+        $page_title = "Edit Superpower";
+
+        return view('superpowers.edit', compact('superpower', 'page_title'));
     }
 
     /**
@@ -83,13 +89,13 @@ class SuperpowersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $superpowers = Superpowers::where('user_id', Auth::id())
+        $superpower = Superpowers::where('user_id', Auth::id())
         ->where('id', $id)
         ->where('active', 1)
         ->select('id', 'name', 'desciption')
         ->firstOrfail();
 
-        $superpowers->update([
+        $superpower->update([
             'name' => $request->name,
             'description' => $request->description
         ]);
@@ -102,15 +108,16 @@ class SuperpowersController extends Controller
      */
     public function destroy(string $id)
     {
-        $superpowers = Superpowers::where('user_id', Auth::id())
+        $superpower = Superpowers::where('user_id', Auth::id())
         ->where('id', $id)
         ->where('active', 1)
+        ->select('id', 'name', 'desciption')
         ->firstOrfail();
 
-        $superpowers->update([
+        $superpower->update([
             'active' => 0
         ]);
 
-        return redirect()->route('superpowers.show', $id);
+        return redirect()->route('superpowers.index', $id);
     }
 }

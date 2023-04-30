@@ -1,30 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Parents</title>
-</head>
-<body>
+@extends('layouts.master')
 
-    <h1>Edit Parents</h1>
-
-    <form action="{{ route('parents.update', $parents->id) }}" method="post">
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-9 col-lg-6">
+            
+        <form action="{{ route('parents.update', $parents->id) }}" method="post">
         @method('put')
         @csrf
-        <label for="name">Name *</label> <br>
-        <input type="text" name="name" value= "{{$parents->name}}">
+        <div class="mb-3">
+        <label for="name" class="form-label">Name *</label>
+        <input type="text" name="name" class="form-control" value= "{{$parent->name}}"></div>
 
-        <br><br>
-        <select name="gender" id= ""value= "{{$parents->name}}">
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-            <option value="N/A">N/A</option>
-        </select>
-        
-        <br><br>
-        <button type="submit">Edit Parents</button>
-    </form>
-</body>
-</html>
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label><br>
+            <select name="gender" class="form-control">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="N/A">N/A</option>
+            </select>
+        </div>
+        <br></br>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-warning">Edit Parents</button><br>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection

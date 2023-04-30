@@ -1,29 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Parents</title>
-</head>
-<body>
+@extends('layouts.master')
 
-    <h1>Create Parents</h1>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-9 col-lg-6">
 
-    <form action="{{ route('parents.store') }}" method="post">
+            <form action="{{ route('parents.store') }}" method="post">
         @csrf
-        <label for="name">Name *</label>
-        <input type="text" name="name">
-
-        <br><br>
-        <select name="gender" id=" ">
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-            <option value="N/A">N/A</option>
-        </select>
-        
-        <br><br>
-        <button type="submit">Create Parents</button>
-    </form>
-</body>
-</html>
+        <div class="mb-3">
+                    <label for="name" class="form-label">Name *</label>
+                    <input type="text" name="name" class="form-control">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="gender" class="form-label">Gender</label><br>
+                    <select name="gender" class="form-control">
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                </div>
+                <br>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-warning">>Create Parents</button><br>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection

@@ -1,22 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parents Name</title>
-</head>
-<body>
+@extends('layouts.master')
+
+@section('content')
+<br><br>
+<div class="container">
+    <div class="row text-center">
     <h1>{{$parents->name}}</h1>
     <p>{{$parents->gender}}</p>
+</div>
+</div>
+<br><br>
+@endsection
 
-    <a href="{{ route('parents.edit', $parents->id)}}">Edit Parents</a>
+@section('buttons')
+<div class="container">
+        <div class="row text-center">
+            <div class="col text-end">
+                <a href="{{ route('parents.edit', $parents->id)}}">Edit Parent</a></div>
     <for action="{{ route('parents.destroy', $parents->id) }}" method="pots">
         @method('delete')
         @csrf
 
-        <br><button type="submit" onclick="return confirm('Are you sure you want to delete this record?')">Delete Parents</button>
+        <br><button type="submit" onclick="return confirm('Are you sure you want to delete this record?')">Delete Parent</button>
     </form>
-    
-</body>
-</html>
+</div>
+</div>
+ @endsection
